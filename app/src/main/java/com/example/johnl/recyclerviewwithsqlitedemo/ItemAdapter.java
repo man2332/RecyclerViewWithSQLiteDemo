@@ -50,9 +50,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         if(mCursor.moveToPosition(position)){
             String name = mCursor.getString(mCursor.getColumnIndex(ItemContract.ItemEntry.COLUMN_NAME));
             int amount = mCursor.getInt(mCursor.getColumnIndex(ItemContract.ItemEntry.COLUMN_AMOUNT));
+            //get the id of each view to use later to delete an item
+            long id = mCursor.getLong(mCursor.getColumnIndex(ItemContract.ItemEntry._ID));
 
             holder.itemTV.setText(name);
             holder.amountTV.setText(String.valueOf(amount));//.setText(String text) requires a String
+            //itemView represents the entire view of an entry & set a tag to it
+            holder.itemView.setTag(id);
         }
 
         //Cursor.moveToPosition(position), Cursor.getString(int i), Cursor.getInt(int i)Cursor.getColumnIndex(String s)

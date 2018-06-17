@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +52,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //add a ItemTouchHelper to our recyclerview
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                removeItem((long) viewHolder.itemView.getTag());
+            }
+        }).attachToRecyclerView(mRecyclerView);
     }
+    //remove an item when swiping it left or right
+    private void removeItem(long id){
+        //find in the table with the given name TABLE_NAME & look for the _ID matching given id
+        //   and delete it
+        sqLiteDatabase.delete(ItemContract.ItemEntry.TABLE_NAME,
+                ItemContract.ItemEntry._ID + "=" + id,
+                null);
+        //..........................................
+        mItemAdapter.swapCursor(getAllItemsCursor());
+    }
+
     //add an entry to our data base using insert()
     private void addItem(){
         String item = itemNameET.getText().toString();
