@@ -1,5 +1,4 @@
 package com.example.johnl.recyclerviewwithsqlitedemo;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +10,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 public class MainActivity extends AppCompatActivity {
 
     private ItemAdapter mItemAdapter;

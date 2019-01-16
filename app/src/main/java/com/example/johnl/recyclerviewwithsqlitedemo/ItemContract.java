@@ -1,5 +1,4 @@
 package com.example.johnl.recyclerviewwithsqlitedemo;
-
 import android.provider.BaseColumns;
 //-helper class that gives me constants we will often use
 public class ItemContract {

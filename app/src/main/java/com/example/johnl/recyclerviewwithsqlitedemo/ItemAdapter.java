@@ -58,7 +58,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             //the tag won't be visible on the view, its used to identify a certain itemView
             //  -the tag is used in MainActivity>onCreate>ItemTouchHelper>swiped
         }
-        //Cursor.moveToPosition(position), Cursor.getString(int i), Cursor.getInt(int i)Cursor.getColumnIndex(String s)
     }
 
     @Override
@@ -82,3 +81,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 //-swapCursor()-whenever we create an adapter, we will pass a cursor to it(with the Constructor)
 //  but when we want to update(like adding/removing)the database we need to pass a new cursor(newCursor)
 //  -this method basically replaces the database's old cursor with the cursor obj passed in(newCursor)
+
+
+
+
+
+
+
+
+
+
+
+
+
