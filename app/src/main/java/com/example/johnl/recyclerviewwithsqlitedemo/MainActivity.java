@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
             }
-
+            //onSwiped- when dragging the view from left to right, or right to left
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                removeItem((long) viewHolder.itemView.getTag());
+                removeItem((long) viewHolder.itemView.getTag());//remove the view using the view's tag
             }
-        }).attachToRecyclerView(mRecyclerView);
+        }).attachToRecyclerView(mRecyclerView);//attached the ItemTouchHelper to a RecyclerView
     }
     //remove an item when swiping it left or right
     private void removeItem(long id){
@@ -74,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 ItemContract.ItemEntry._ID + "=" + id,
                 null);
         //..........................................
-        mItemAdapter.swapCursor(getAllItemsCursor());
+        mItemAdapter.swapCursor(getAllItemsCursor());//update the cursor in the adapter
     }
 
     //add an entry to our data base using insert()
     private void addItem(){
         String item = itemNameET.getText().toString();
-        Integer amount = Integer.parseInt(itemNumberET.getText().toString());
+        Integer amount = itemNumberET.getText().toString().equals("") ? 0 : Integer.parseInt(itemNumberET.getText().toString());
 
         if(item.trim().length() != 0 && amount != 0){
             ContentValues contentValues = new ContentValues();
@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
                     null,
                     contentValues);
             mItemAdapter.swapCursor(getAllItemsCursor());
+            //-after inserting new values into the database, call swapCursor() to give the ItemAdapter
+            //  the most recent/updated database values
 
             //clear input fields for new data
             itemNameET.getText().clear();
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private Cursor getAllItemsCursor(){
         //get all the items in the database & order it by most recent added item appears top of list
         //-query & return from the table TABLE_NAME, with no conditions and order by COLUMN_TIMESTAMP in DESC order
-        return sqLiteDatabase.query(
+        return sqLiteDatabase.query(//.query() returns a cursor obj
                 ItemContract.ItemEntry.TABLE_NAME,
                 null,
                 null,
@@ -110,6 +112,12 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 ItemContract.ItemEntry.COLUMN_TIMESTAMP + " DESC"
         );
-
     }
 }
+//-getAllItemCursor() - querys the database and returns all items in the db in descending order(highest appears top)
+//      --basically get a updated cursor to our database
+//-A LayoutManager is responsible for measuring and positioning item views within a RecyclerView
+// as well as determining the policy for when to recycle item views that are no longer visible to the user
+//-ItemTouchHelper-This is a utility class to add swipe to dismiss and drag & drop support to RecyclerView
+//  swipeDirs: args tell us which direction do we want to handle
+

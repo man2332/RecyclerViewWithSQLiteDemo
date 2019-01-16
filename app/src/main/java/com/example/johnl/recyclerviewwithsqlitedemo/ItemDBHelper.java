@@ -8,7 +8,6 @@ public class ItemDBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "itemlist.db";
     public static final int DB_VERSION = 1;
 
-
     public ItemDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -32,3 +31,4 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 }
+//-A DB Helper class creates a database
